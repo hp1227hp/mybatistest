@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.test.mapper.UserMapper">
+
+    <insert id="create" parameterType="com.example.test.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into t_user(name, age)
+        values (#{name}, #{age})
+    </insert>
+
+    <insert id="create2" parameterType="com.example.test.entity.User">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_user(`name`, age)
+        values (#{name}, #{age})
+    </insert>
+
+    <delete id="delete" parameterType="int">
+        delete
+        from t_user
+        where id = #{id}
+    </delete>
+
+</mapper>
